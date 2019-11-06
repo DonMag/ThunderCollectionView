@@ -1,8 +1,18 @@
 import UIKit
 
 class Section2: UICollectionViewCell {
+	
+	// DonMag - used in systemLayoutSizeFitting() for auto-sizing cells
+	lazy var width: NSLayoutConstraint = {
+		let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
+		width.isActive = true
+		return width
+	}()
+	
 	static let tableSubCellId = "tableSubCellId"
-	private weak var tableView: UITableView!
+	
+	// DonMag - use ContentSizedTableView subclass of UITableView
+	private weak var tableView: ContentSizedTableView!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -14,23 +24,40 @@ class Section2: UICollectionViewCell {
 	}
 
 	private func setupTableView() {
-		let tableView = UITableView(frame: self.frame, style: .plain)
+		// DonMag - use ContentSizedTableView subclass of UITableView
+		let tableView = ContentSizedTableView(frame: self.frame, style: .plain)
+		
 		tableView.backgroundColor = .clear
 		tableView.isScrollEnabled = false
 		tableView.allowsSelection = false
 		tableView.separatorColor = .gray
 		tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: TableHeaderView.headerCellId)
 		tableView.register(TableViewCell.self, forCellReuseIdentifier: Section2.tableSubCellId)
-		self.addSubview(tableView)
+		
+		// DonMag - we'll be using contentView ... so disable translates...
+		contentView.translatesAutoresizingMaskIntoConstraints = false
+		
+		// DonMag - add table view to contentView ... NOT to self
+		contentView.addSubview(tableView)
+		
 		self.tableView = tableView
 		self.tableView.translatesAutoresizingMaskIntoConstraints = false
-		self.tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-		self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-		self.tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-		self.tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+		
+		// DonMag - constrain to contentView ... NOT to self
+		self.tableView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+		self.tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+		self.tableView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+		self.tableView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+		
 		tableView.separatorColor = .gray
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
+	}
+	
+	// DonMag - used for auto-sizing collectionView cell
+	override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+		width.constant = bounds.size.width
+		return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 1))
 	}
 }
 

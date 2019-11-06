@@ -8,6 +8,11 @@ class ViewController: UIViewController {
 		override func viewDidLoad() {
 			self.navigationItem.title = "Collection View"
 			super.viewDidLoad()
+			
+			// DonMag - we'll constrain elements to safe-area,
+			// DonMag - so set view background color to black
+			view.backgroundColor = .black
+			
 			self.setupCollectionView()
 		}
 
@@ -16,6 +21,11 @@ class ViewController: UIViewController {
 			flowLayout.scrollDirection = .vertical
 			flowLayout.minimumInteritemSpacing = 0.0
 			flowLayout.minimumLineSpacing = 0.0
+			
+			// DonMag - layout needs an estimatedSize to implement auto-sizing
+			// DonMag - height can really be anything
+			flowLayout.estimatedItemSize = CGSize(width: self.view.frame.width, height: 100)
+			
 			let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: flowLayout)
 			collectionView.alwaysBounceVertical = true
 			collectionView.register(
@@ -28,10 +38,15 @@ class ViewController: UIViewController {
 			self.view.addSubview(collectionView)
 			self.collectionView = collectionView
 			self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-			self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-			self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-			self.collectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-			self.collectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+			
+			// DonMag - constrain main collection view to safe-area instead of view frame
+			let g = view.safeAreaLayoutGuide
+			
+			self.collectionView.topAnchor.constraint(equalTo: g.topAnchor).isActive = true
+			self.collectionView.bottomAnchor.constraint(equalTo: g.bottomAnchor).isActive = true
+			self.collectionView.leftAnchor.constraint(equalTo: g.leftAnchor).isActive = true
+			self.collectionView.rightAnchor.constraint(equalTo: g.rightAnchor).isActive = true
+			
 			self.collectionView.dataSource = self
 			self.collectionView.delegate = self
 		}
@@ -39,16 +54,22 @@ class ViewController: UIViewController {
 
 	// MARK: - UICollectionViewDelegateFlowLayout
 	extension ViewController: UICollectionViewDelegateFlowLayout {
-		func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-			switch indexPath.section {
-			case 0:
-				return CGSize(width: self.view.frame.width, height: 210.0)
-			case 1:
-				return CGSize(width: self.view.frame.width, height: 5 * 51.0 + 200.0) // How to enable self-sizing cells for table view inside
-			default:
-				fatalError("Unsupported section index.")
-			}
-		}
+		
+		// DonMag -
+		// with properly setup cell constraints, we don't need to implement sizeForItemAt
+		// Section1 cell height will now be determined by its own collectionView's height
+		// Section2 cell height will now be determined by its ContentSizedTableView's height
+		
+//		func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//			switch indexPath.section {
+//			case 0:
+//				return CGSize(width: self.view.frame.width, height: 210.0)
+//			case 1:
+//				return CGSize(width: self.view.frame.width, height: 5 * 51.0 + 200.0) // How to enable self-sizing cells for table view inside
+//			default:
+//				fatalError("Unsupported section index.")
+//			}
+//		}
 
 		func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 			return CGSize(width: self.view.frame.width, height: 61)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C5C947823731C2900A94D1E /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C947723731C2900A94D1E /* ContentSizedTableView.swift */; };
 		F606A2B32371E01A001EFF07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F606A2B22371E01A001EFF07 /* AppDelegate.swift */; };
 		F606A2B52371E01A001EFF07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F606A2B42371E01A001EFF07 /* SceneDelegate.swift */; };
 		F606A2B72371E01A001EFF07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F606A2B62371E01A001EFF07 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C5C947723731C2900A94D1E /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		F606A2AF2371E01A001EFF07 /* SelfSizingCollectionViewWithTableViewCell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfSizingCollectionViewWithTableViewCell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F606A2B22371E01A001EFF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F606A2B42371E01A001EFF07 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				F606A2CE2372DE63001EFF07 /* TableHeaderView.swift */,
 				F606A2D02372DEC5001EFF07 /* TableViewCell.swift */,
 				F606A2CA2372DBFA001EFF07 /* ImageThumbnailCell.swift */,
+				7C5C947723731C2900A94D1E /* ContentSizedTableView.swift */,
 				F606A2B82371E01A001EFF07 /* Main.storyboard */,
 				F606A2BB2371E01E001EFF07 /* Assets.xcassets */,
 				F606A2BD2371E01E001EFF07 /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 				F606A2C92372D362001EFF07 /* Section1.swift in Sources */,
 				F606A2B72371E01A001EFF07 /* ViewController.swift in Sources */,
 				F606A2B32371E01A001EFF07 /* AppDelegate.swift in Sources */,
+				7C5C947823731C2900A94D1E /* ContentSizedTableView.swift in Sources */,
 				F606A2D12372DEC5001EFF07 /* TableViewCell.swift in Sources */,
 				F606A2B52371E01A001EFF07 /* SceneDelegate.swift in Sources */,
 				F606A2CF2372DE63001EFF07 /* TableHeaderView.swift in Sources */,
@@ -240,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -294,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

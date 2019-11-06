@@ -1,6 +1,14 @@
 import UIKit
 
 class Section1: UICollectionViewCell {
+	
+	// DonMag - used in systemLayoutSizeFitting() for auto-sizing cells
+	lazy var width: NSLayoutConstraint = {
+		let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
+		width.isActive = true
+		return width
+	}()
+	
 	private let images: [URL]
 	let collectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
@@ -33,10 +41,15 @@ class Section1: UICollectionViewCell {
 	func setupViews() {
 		self.collectionView.dataSource = self
 		self.collectionView.delegate = self
-
-		self.addSubview(self.collectionView)
-
-		self.addConstraints(
+		
+		// DonMag - we'll be using contentView ... so disable translates...
+		contentView.translatesAutoresizingMaskIntoConstraints = false
+		
+		// DonMag - add collection view to contentView ... NOT to self
+		contentView.addSubview(self.collectionView)
+		
+		// DonMag - constrain to contentView ... NOT to self
+		contentView.addConstraints(
 			NSLayoutConstraint.constraints(
 				withVisualFormat: "H:|-0-[v0]-0-|",
 				options: [.directionLeadingToTrailing],
@@ -44,14 +57,24 @@ class Section1: UICollectionViewCell {
 				views: ["v0": self.collectionView]
 			)
 		)
-		self.addConstraints(
+		
+		// DonMag - auto-sizing cells need full constraints,
+		// DonMag - so set Height constraint to 210 -- [v0(210)]
+		// DonMag - constrain to contentView ... NOT to self
+		contentView.addConstraints(
 			NSLayoutConstraint.constraints(
-				withVisualFormat: "V:|-0-[v0]-0-|",
+				withVisualFormat: "V:|-0-[v0(210)]-0-|",
 				options: [.directionLeadingToTrailing],
 				metrics: nil,
 				views: ["v0": self.collectionView]
 			)
 		)
+	}
+	
+	// DonMag - used for auto-sizing collectionView cell
+	override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+		width.constant = bounds.size.width
+		return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 1))
 	}
 }
 
